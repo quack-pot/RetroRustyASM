@@ -5,4 +5,4 @@ edition = "2024"
 
 [dependencies]
 rra_core = { path = "../rra_core" }
-iced = "0.14"
+iced = { version = "0.14", features = ["tokio"] }
