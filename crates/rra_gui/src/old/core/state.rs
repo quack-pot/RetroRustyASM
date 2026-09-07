@@ -27,6 +27,18 @@ impl State {
         match message {
             Message::Tick(_now) => {}
 
+            Message::PaneDragged(event) => match event {
+                iced::widget::pane_grid::DragEvent::Dropped { pane, target } => {
+                    if let iced::widget::pane_grid::Target::Pane(target, _) = target {
+                        self.panes.swap(pane, target);
+                    }
+                }
+
+                iced::widget::pane_grid::DragEvent::Picked { pane: _ } => {}
+
+                iced::widget::pane_grid::DragEvent::Canceled { pane: _ } => {}
+            },
+
             Message::PaneResized(event) => {
                 self.panes.resize(event.split, event.ratio);
             }
@@ -42,6 +54,7 @@ impl State {
 
             iced::widget::pane_grid::Content::new(content)
         })
+        .on_drag(Message::PaneDragged)
         .on_resize(10, Message::PaneResized)
         .into();
     }
