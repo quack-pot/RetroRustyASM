@@ -1,5 +1,4 @@
-use iced::widget::button;
-use iced::widget::text_editor;
+use iced::widget::{button, text_editor};
 
 pub struct State {
     content: text_editor::Content,
